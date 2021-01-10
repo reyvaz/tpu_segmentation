@@ -107,7 +107,7 @@ def unet_model(backbone, num_classes, skip_connection_layers,
     x = L.Conv2D(num_classes, (3,3), padding='same', name='final_conv')(x)
     x = L.Activation(activation, name=activation)(x)
 
-    model = tf.keras.Model(input, x, name='{}_Unet'.format(backbone.name.title()))
+    model = tf.keras.Model(input, x, name='{}-Unet'.format(backbone.name.title()))
     return model
 
 # Unet Builder (for matching and unmatching weights)
