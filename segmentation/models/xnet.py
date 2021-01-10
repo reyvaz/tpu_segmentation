@@ -225,7 +225,7 @@ def xnet(backbone_name, num_classes, input_shape=(None, None, 3),
             skips_dict_key = 'resnet'
         skip_connection_layers = xnet_skip_connections_dict[skips_dict_key][:n_skip_layers]
 
-    model = build_xnet(backbone, num_classes, skip_connection_layers,
+    model = xnet_model(backbone, num_classes, skip_connection_layers,
                        decoder_filters, upsample_rates, n_upsample_blocks,
                        block_type, activation, use_batchnorm)
     return model
