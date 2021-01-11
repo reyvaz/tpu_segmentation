@@ -269,7 +269,7 @@ def shear_img(image, dim, n_channels, shear_factor = 7.0):
     '''
     xdim = dim%2
     shr = shear_factor * tf.ones([1], dtype='float32')
-    shear    = math.pi * shr / 180.
+    shear    = 3.141593 * shr / 180.
 
     def get_3x3_mat(lst):
         return tf.reshape(tf.concat([lst],axis=0), [3,3])
