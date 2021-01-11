@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib as mpl
 from matplotlib import pyplot as plt
+from .augmentations import *
 
 axes_color = '#999999'
 mpl.rcParams.update({'text.color' : "#999999", 'axes.labelcolor' : axes_color,
