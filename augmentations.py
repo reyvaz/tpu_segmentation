@@ -204,7 +204,7 @@ def rotate_img(image, dim, n_channels, degrees):
     xdim = dim%2
 
     degrees = degrees * tf.ones([1], dtype='float32')
-    rotation = math.pi * degrees / 180.
+    rotation = 3.141593 * degrees / 180.
 
     def get_3x3_mat(lst):
         return tf.reshape(tf.concat([lst],axis=0), [3,3])
