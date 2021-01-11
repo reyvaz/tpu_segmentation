@@ -3,7 +3,7 @@ import tensorflow.keras.backend as K
 import numpy as np
 from matplotlib import pyplot as plt
 
-class metrics_improvements(tf.keras.callbacks.Callback):
+class performance_monitor(tf.keras.callbacks.Callback):
     '''
     Prints out information when the value of the `watch` metric has improved.
     freq: (None or int), if int, the frequency (in epochs) to print out all
