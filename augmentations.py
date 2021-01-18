@@ -234,23 +234,39 @@ def rotate_img(image, dim, n_channels, degrees):
     return tf.reshape(d,[dim, dim, n_channels])
 
 # @tf.function
-def random_rotate(image, dim, n_channels=3, mask = None,
-                  n_classes = 1, max_degrees = 25.):
+def random_rotate(image, size, n_channels=3, mask = None,
+                      n_classes = 1, max_degrees = 25.):
     '''
     Applies random rotation to an image (and mask if indicated)
     Args:
-        image: array of one squared image of shape (dim, dim, n_channels)
-        dim: (int) the lenght of one of the image sides
+        image: image array of shape (H, W, n_channels)
+        size: (tuple of ints) the size of the image (H, W)
         n_channels: (int) the number of channels of the image
-        mask : array of one squared image of shape (dim, dim, n_classes)
+        mask : mask array of shape (H, W, n_classes)
         n_classes: (int) the number of classes (i.e. channels) of the mask array
         max_degrees: (float) the maximum rotation to be applied in degrees
     '''
     degrees = max_degrees * tf.random.uniform([], -1, 1, dtype='float32')
-    image = rotate_img(image, dim, n_channels, degrees)
+
+    square = size[0] == size[1]
+    if square:
+        dim = size[0]
+        image = rotate_img(image, dim, n_channels, degrees)
+    else:
+        dim = tf.math.reduce_max(size)
+        temp_size = tf.stack([dim, dim])
+        image = tf.image.resize(image, temp_size)
+        image = rotate_img(image, dim, n_channels, degrees)
+        image = tf.image.resize(image, size)
+        image = tf.reshape(image, [*size, n_channels])
 
     if mask != None:
-        mask = rotate_img(mask, dim, n_classes, degrees)
+        if square: mask = rotate_img(mask, dim, n_classes, degrees)
+        else:
+            mask = tf.image.resize(mask, temp_size)
+            mask = rotate_img(mask, dim, n_classes, degrees)
+            mask = tf.image.resize(mask, size)
+            mask = tf.reshape(mask, [*size, n_classes])
         return image, mask
     else: return image
 
@@ -300,24 +316,40 @@ def shear_img(image, dim, n_channels, shear_factor = 7.0):
 
     return tf.reshape(d,[dim, dim, n_channels])
 
-#@tf.function
-def random_shear(image, dim, n_channels=3, mask = None,
-                  n_classes = 1, max_shear = 7.):
+# @tf.function
+def random_shear(image, size, n_channels=3, mask = None,
+                      n_classes = 1, max_shear = 7.):
     '''
-    Applies random shear to an image (and mask if indicated)
+    Applies random rotation to an image (and mask if indicated)
     Args:
-        image: array of one squared image of shape (dim, dim, n_channels)
-        dim: (int) the lenght of one of the image sides
+        image: image array of shape (H, W, n_channels)
+        size: (tuple of ints) the size of the image (H, W)
         n_channels: (int) the number of channels of the image
-        mask : array of one squared image of shape (dim, dim, n_classes)
+        mask : mask array of shape (H, W, n_classes)
         n_classes: (int) the number of classes (i.e. channels) of the mask array
-        max_degrees: (float) the maximum shear to be applied in degrees
+        max_shear: (float) the maximum shear to be applied in degrees
     '''
     shear = max_shear * tf.random.uniform([], dtype='float32')
-    image = shear_img(image, dim, n_channels, shear)
+
+    square = size[0] == size[1]
+    if square:
+        dim = size[0]
+        image = shear_img(image, dim, n_channels, shear)
+    else:
+        dim = tf.math.reduce_max(size)
+        temp_size = tf.stack([dim, dim])
+        image = tf.image.resize(image, temp_size)
+        image = shear_img(image, dim, n_channels, shear)
+        image = tf.image.resize(image, size)
+        image = tf.reshape(image, [*size, n_channels])
 
     if mask != None:
-        mask = shear_img(mask, dim, n_classes, shear)
+        if square: mask = shear_img(mask, dim, n_classes, shear)
+        else:
+            mask = tf.image.resize(mask, temp_size)
+            mask = shear_img(mask, dim, n_classes, shear)
+            mask = tf.image.resize(mask, size)
+            mask = tf.reshape(mask, [*size, n_classes])
         return image, mask
     else: return image
 

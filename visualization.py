@@ -61,17 +61,17 @@ def plot_image_mask(img_mask_tuple, height = 5, cmap = 'bone', mask_alpha = 0.4)
 
 def show_augmentations(image, mask):
     h, w, n_channels = image.shape
-    target_size = (h, w)
+    size = (h, w)
     n_classes = np.array(mask).shape[2]
     label = None
 
     aug_hor_flip = left_right_flip(image, mask)
-    aug_zoomed_in = image_mask_zoom_in(image, mask, target_size, label, n_channels, n_classes)
-    aug_zoomed_out = random_zoom_out_and_pan(image, target_size, mask, n_channels, n_classes)
+    aug_zoomed_in = image_mask_zoom_in(image, mask, size, label, n_channels, n_classes)
+    aug_zoomed_out = random_zoom_out_and_pan(image, size, mask, n_channels, n_classes)
 
-    aug_rotated = random_rotate(image, h, n_channels, mask, n_classes, 7.)
-    aug_sheared = random_shear(image, h, n_channels, mask, n_classes, 7.)
-    aug_coarsed = [coarse_dropout(image, target_size, n_channels, (100, 200), 0.015), mask]
+    aug_rotated = random_rotate(image, size, n_channels, mask, n_classes, 7.)
+    aug_sheared = random_shear(image, size, n_channels, mask, n_classes, 7.)
+    aug_coarsed = [coarse_dropout(image, size, n_channels, (100, 200), 0.015), mask]
 
     pairs = [[image, mask], aug_hor_flip, aug_zoomed_in, aug_zoomed_out, aug_rotated, aug_sheared, aug_coarsed]
     titles = ['Original', 'Horizontal Flip', 'Zoom-In', 'Zoom-Out',

@@ -80,10 +80,7 @@ def plot_lr_timeline(lr_params, num_epochs = 25, show_list=False):
     plt.show()
     if show_list: print(lr_timeline)
 
-# lr_show prints out the current learning rate at the start of each epoch.
-# it should be placed after LR-scheduler in the list of callbacks @ model.fit
-lr_show = tf.keras.callbacks.LambdaCallback(
-    on_epoch_begin= lambda epoch,logs: print('lr: %e' % (K.eval(model.optimizer.lr))))
+
 
 def config_checkpoint(filepath = 'weights.h5', monitor ='val_loss', mode = 'min', verbose=0):
     # configures the training checkpoint to save best weights
