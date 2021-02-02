@@ -60,16 +60,34 @@ Notes:
 
 **Code credits**: 
 
-- Pavel Yakubovskiy's ([@qubvel](https://github.com/qubvel)) [EfficientNet](https://github.com/qubvel/efficientnet) and [Segmentation Models](https://github.com/qubvel/segmentation_models). The EfficientNet backbones are built using qubvel's efficientnet library. Imagenet and noisy-student weights come from there as well. Skip connections dictionaries are based on qubvel's Segmentation Models library. 
+- Zongwei Zhou's ([@MrGiovanni](https://github.com/MrGiovanni)) [UNetPlusPlus](https://github.com/MrGiovanni/UNetPlusPlus). 
 
-- Zongwei Zhou's ([@MrGiovanni](https://github.com/MrGiovanni)) [UNetPlusPlus library](https://github.com/MrGiovanni/UNetPlusPlus). Unet and Unet++ model builders as well as the upsampling related blocks were borrowed/adapted from MrGiovanni's UNetPlusPlus keras library. 
-
-- Chris Deotte's [Triple Stratified KFold with TFRecords](https://www.kaggle.com/cdeotte/triple-stratified-kfold-with-tfrecords/notebook). The rotation and shear augmentation functions were adapted from Chris' code in this notebook. The code for the coarse dropout was also adapted from his code [here](https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/169721).
+- Pavel Yakubovskiy's ([@qubvel](https://github.com/qubvel)) [EfficientNet](https://github.com/qubvel/efficientnet) and [Segmentation Models](https://github.com/qubvel/segmentation_models). 
 
 
+
+
+
+- Chris Deotte's [Triple Stratified KFold with TFRecords](https://www.kaggle.com/cdeotte/triple-stratified-kfold-with-tfrecords/notebook). 
+
+This repository was built upon Zongwei Zhou's [UNetPlusPlus](https://github.com/MrGiovanni/UNetPlusPlus) and Pavel Yakubovskiy's [Segmentation Models](https://github.com/qubvel/segmentation_models) repositories. Code from their repositories were combined/modified to build Tensorflow 2.x (tf.keras), TPU-compatible Unet and Unet++ networks with backbones from  @qubvel's [EfficientNet](https://github.com/qubvel/efficientnet) library as well as ResNet backbones from `tf.keras.applications`. 
+
+Specifically, Unet and Unet++ model builders as well as the upsampling related blocks were adapted from MrGiovanni's UNetPlusPlus keras library. The EfficientNet backbones are built using qubvel's efficientnet library. Imagenet and noisy-student weights come from there as well. Skip connections dictionaries are based on qubvel's Segmentation Models. 
+
+The rotation and shear augmentation functions were adapted from Chris Deotte's code in this [notebook](https://www.kaggle.com/cdeotte/triple-stratified-kfold-with-tfrecords/notebook). The code for coarse dropout was also adapted from Chris' code in  [this discussion](https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/169721).
 
 **References**:
-in progress
+
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, & Jian Sun. (2015). Deep Residual Learning for Image Recognition.
+
+Mingxing Tan, & Quoc V. Le. (2020). EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks.
+
+Olaf Ronneberger, Philipp Fischer, & Thomas Brox. (2015). U-Net: Convolutional Networks for Biomedical Image Segmentation.
+
+Zhou, Z., Siddiquee, M., Tajbakhsh, N., & Liang, J. (2019). UNet++: Redesigning Skip Connections to Exploit Multiscale Features in Image Segmentation IEEE - Transactions on Medical Imaging.
+
+
+
 
 <br>
 

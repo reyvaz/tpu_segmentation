@@ -11,6 +11,7 @@ cnn_dict = {
     'efficientnetb5': (efn.EfficientNetB5),
     'efficientnetb6': (efn.EfficientNetB6),
     'efficientnetb7': (efn.EfficientNetB7),
+    'efficientnetL2': (efn.EfficientNetL2),
     'resnet50':       (tf.keras.applications.ResNet50),
     'resnet101':      (tf.keras.applications.ResNet101),
     'resnet152':      (tf.keras.applications.ResNet152)

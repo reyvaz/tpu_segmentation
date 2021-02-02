@@ -103,8 +103,9 @@ def xnet_model(backbone, num_classes, skip_connection_layers,
 
     if block_type == 'transpose':
         up_block = Transpose2D_block
-    else:
+    elif block_type == 'upsampling':
         up_block = Upsample2D_block
+    else: raise Exception('block_type must be one of \'transpose\' or \'upsampling\'')
 
     if len(skip_connection_layers) > n_upsample_blocks:
         downsampling_layers = skip_connection_layers[int(len(skip_connection_layers)/2):]

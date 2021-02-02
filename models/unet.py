@@ -89,8 +89,9 @@ def unet_model(backbone, num_classes, skip_connection_layers,
 
     if block_type == 'transpose':
         up_block = DecoderTranspose2DBlock
-    else:
+    elif block_type == 'upsampling':
         up_block = DecoderUpsample2DBlock
+    else: raise Exception('block_type must be one of \'transpose\' or \'upsampling\'')
 
     skip_connection_idx = ([get_layer_number(backbone, l) if isinstance(l, str) else l
                                for l in skip_connection_layers])
