@@ -56,11 +56,6 @@ def contoured_mask(mask, rgb_color = (0, 0, 255), alpha = 0.2):
     mask_[..., 3] = np.maximum(alpha*mask, boundary)
     return mask_
 
-plt.imshow(image, cmap=plt.cm.bone)
-plt.imshow(contoured_mask(mask, (204, 0, 153)))
-plt.axis('off')
-plt.show()
-
 def plot_image_mask(img_mask_tuple, height = 5, cmap = 'bone',
                     mask_rgb = (204, 0, 153), mask_alpha = 0.4):
     aspect_ratio = img_mask_tuple[0].shape[1]/img_mask_tuple[0].shape[0]
