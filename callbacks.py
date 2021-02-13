@@ -70,10 +70,11 @@ def plot_lr_timeline(lr_params, num_epochs = 25, show_list=False):
     '''
     lr_timeline = [lrfn(i, lr_params) for i in range(num_epochs)]
     t = [i+1 for i in range(num_epochs)]
-    plt.figure(figsize=(max(10, int(num_epochs/3)), 4.5))
+    plt.figure(figsize=(max(10, int(num_epochs/3)), 4))
     plt.plot(t, lr_timeline)
     plt.xticks(t)
     plt.xlim(t[0], t[-1])
+    plt.xlabel('Epoch')
     idx = np.argmax(lr_params[:3])
     plt.ylim(0, lr_params[idx]*1.1)
     plt.title('Learning Rate Timeline')
