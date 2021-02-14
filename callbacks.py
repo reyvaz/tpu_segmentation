@@ -39,8 +39,8 @@ class performance_monitor(tf.keras.callbacks.Callback):
                 print('Epoch: {:03d}'.format(epoch+1), *items)
 
     def on_train_end(self, logs=None):
-        items = ['{}: {:.6f}'.format(i[0], i[1]) for i in self.best_logs.items()]
-        print('\nBest at Epoch: {:03d}'.format(self.best_epoch+1), *items)
+        items = ['{}: {:.5f}'.format(i[0], i[1]) for i in self.best_logs.items()]
+        print('\nBest at Epoch: {:03d}'.format(self.best_epoch+1), *items[:-1])
 
 lr_default_params = {
     'lr_start': 3e-4,
