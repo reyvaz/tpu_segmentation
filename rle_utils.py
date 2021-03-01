@@ -49,7 +49,7 @@ def rle2mask(rle, mask_shape):
 #     return mask
 
 #@tf.function
-def _build_mask_array(rle, mask_size, n_classes=1):
+def build_mask_array(rle, mask_size, n_classes=1):
     '''
     Converts a RLE or a list of RLEs, into an array of
     shape (*mask_size, n_classes)
