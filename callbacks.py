@@ -81,8 +81,6 @@ def plot_lr_timeline(lr_params, num_epochs = 25, show_list=False):
     plt.show()
     if show_list: print(lr_timeline)
 
-
-
 def config_checkpoint(filepath = 'weights.h5', monitor ='val_loss', mode = 'min', verbose=0):
     # configures the training checkpoint to save best weights
     checkpoint = tf.keras.callbacks.ModelCheckpoint(

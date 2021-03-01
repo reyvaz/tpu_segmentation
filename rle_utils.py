@@ -31,20 +31,35 @@ def rle2mask(rle, mask_shape):
     return tf.transpose(mask)
 
 #@tf.function(experimental_relax_shapes=True)
-def build_mask_array(rle, mask_size, n_classes=1):
+# def build_mask_array(rle, mask_size, n_classes=1):
+#     '''
+#     Converts a RLE or a list of RLEs, into an array of
+#     shape [*mask_size, n_classes]
+#     '''
+#     if n_classes == 1:
+#         mask = rle2mask(rle, mask_size)
+#         mask = tf.expand_dims(mask, axis=2)
+#     else:
+#         ta = tf.TensorArray(dtype=tf.int32, size=0, dynamic_size=True)
+#         for i in tf.range(n_classes):
+#             i = tf.cast(i, dtype=tf.int32)
+#             ta = ta.write(i, tf.transpose(rle2mask(rle[i], mask_size)))
+#         mask = tf.transpose(ta.stack())
+#     mask = tf.reshape(mask, (*mask_size, n_classes))
+#     return mask
+
+#@tf.function
+def _build_mask_array(rle, mask_size, n_classes=1):
     '''
     Converts a RLE or a list of RLEs, into an array of
-    shape [*mask_size, n_classes]
+    shape (*mask_size, n_classes)
     '''
     if n_classes == 1:
         mask = rle2mask(rle, mask_size)
         mask = tf.expand_dims(mask, axis=2)
     else:
-        ta = tf.TensorArray(dtype=tf.int32, size=0, dynamic_size=True)
-        for i in tf.range(n_classes):
-            i = tf.cast(i, dtype=tf.int32)
-            ta = ta.write(i, tf.transpose(rle2mask(rle[i], mask_size)))
-        mask = tf.transpose(ta.stack())
+        mask = [rle2mask(rle[i], mask_size) for i in range(n_classes)]
+        mask = tf.stack(mask, axis = -1)
     mask = tf.reshape(mask, (*mask_size, n_classes))
     return mask
 
